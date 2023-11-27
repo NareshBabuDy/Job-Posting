@@ -20,7 +20,7 @@ public class JobResponse {
     private String description;
     private Integer count;
     private String lastdate;
-    private LocalDateTime postedDate;
+    private String postedDate;
     private Long categoryId;
     private Long companyId;
 }

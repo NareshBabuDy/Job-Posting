@@ -86,4 +86,7 @@ public class JobService {
                 .orElseThrow(() -> new ResourceNotFoundException("JobId", "JobId", jobId));
         return jobs;
     }
+    public Jobs decreaseCount(Long jobid)  {
+            return jobsRepository.decreaseJobCount(jobid);
+    }
 }

@@ -12,4 +12,7 @@ import java.util.List;
 public interface JobsRepository extends JpaRepository<Jobs, Long> {
     @Query("SELECT j FROM Jobs j WHERE j.company.id =?1")
     List<Jobs> findByCompanyId(Long companyId);
+
+    @Query("UPDATE Jobs j SET j.count = j.count - 1 WHERE j.id = ?1")
+    Jobs decreaseJobCount(Long jobid);
 }

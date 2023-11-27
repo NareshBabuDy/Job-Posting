@@ -18,8 +18,11 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AppliedResponse {
-    private Long ApplicationId;
-    private Profile profile;
-    private Jobs jobDetails;
+    private Long id;
+    private Long profileId;
+    private String profileName;
+    private String dateOfApply;
+    private Long jobId;
+    private String jobName;
     private String status;
 }

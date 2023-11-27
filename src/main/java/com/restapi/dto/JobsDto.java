@@ -22,7 +22,7 @@ public class JobsDto {
         jobResponse.setDescription(job.getDescription());
         jobResponse.setCount(job.getCount());
         jobResponse.setLastdate(job.getLastdate());
-        jobResponse.setPostedDate(job.getCreatedAt());
+        jobResponse.setPostedDate(String.valueOf(job.getCreatedAt()));
         jobResponse.setCategoryId(job.getCategory().getId());
         jobResponse.setCompanyId(job.getCompany().getId());
         return jobResponse;

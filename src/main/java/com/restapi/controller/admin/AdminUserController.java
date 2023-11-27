@@ -45,6 +45,7 @@ public class AdminUserController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
+
     @GetMapping("/company/all")
     public ResponseEntity<APIResponse> getCompanyDetails() {
         List<CompanyResponse> company = companyService.findAllCompany();

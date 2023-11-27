@@ -5,6 +5,7 @@ import com.restapi.exception.common.ResourceNotFoundException;
 import com.restapi.model.*;
 import com.restapi.repository.AppliedJobRepository;
 import com.restapi.repository.AppliedRepository;
+import com.restapi.repository.CompanyRepository;
 import com.restapi.repository.ProfileRepository;
 import com.restapi.request.AppliedRequest;
 import com.restapi.response.AppliedResponse;
@@ -27,6 +28,9 @@ public class ApplyService {
     private JobService jobService;
 
     @Autowired
+    private CompanyRepository companyRepository;
+
+    @Autowired
     private AppliedRepository appliedRepository;
 
     @Autowired
@@ -37,7 +41,7 @@ public class ApplyService {
 
     @Transactional
     public AppliedResponse applyToJob(AppliedRequest appliedRequest) {
-        Profile profile = profileRepository.findById(appliedRequest.getProfileId())
+        Profile profile = profileRepository.findByUserId(appliedRequest.getProfileId())
                 .orElseThrow(() -> new ResourceNotFoundException("company", "company", appliedRequest.getProfileId()));
         Jobs jobs = jobService.findById(appliedRequest.getJobId());
         AppliedJob appliedJob1 = new AppliedJob();
@@ -70,6 +74,7 @@ public class ApplyService {
         newapplied.setMainJobid(jobs);
         newapplied.setJobs(appliedJob1);
         appliedRepository.save(newapplied);
+//        Jobs job = jobService.decreaseCount(jobs.getId());
         return applyDto.mapToAppliedResponse(newapplied);
     }
 
@@ -85,7 +90,9 @@ public class ApplyService {
     }
 
     public List<AppliedResponse> findByCompanyId(Long id) {
-        List<Applied> appliedList = appliedRepository.findCompanyApplicationList(id)
+        Company company = companyRepository.findByCompanyId(id)
+                .orElseThrow(() -> new ResourceNotFoundException("company", "company", id));;
+        List<Applied> appliedList = appliedRepository.findCompanyApplicationList(company.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("company", "company", id));
         List<AppliedResponse> appliedResponseList = new ArrayList<>();
         for (Applied applied : appliedList) {

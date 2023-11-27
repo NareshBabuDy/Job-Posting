@@ -26,17 +26,20 @@ public class ApplyDto {
         Applied applied = new Applied();
         if (appliedRequest.getId() != null) {
             applied.setId(appliedRequest.getId());
-            applied.setStatus(appliedRequest.getStatus());
         }
+            applied.setStatus(appliedRequest.getStatus());
         return applied;
     }
 
     public AppliedResponse mapToAppliedResponse(Applied applied) {
         AppliedResponse appliedResponse = new AppliedResponse();
-        appliedResponse.setApplicationId(applied.getId());
-        appliedResponse.setProfile(applied.getProfile());
-        appliedResponse.setJobDetails(applied.getMainJobid());
+        appliedResponse.setId(applied.getId());
+        appliedResponse.setProfileId(applied.getProfile().getId());
+        appliedResponse.setProfileName(applied.getProfile().getFirstName()+applied.getProfile().getLastName());
+        appliedResponse.setJobId(applied.getJobs().getId());
+        appliedResponse.setJobName(applied.getJobs().getTitle());
         appliedResponse.setStatus(applied.getStatus());
+        appliedResponse.setDateOfApply(String.valueOf(applied.getAppliedDate()));
         return appliedResponse;
     }
 }

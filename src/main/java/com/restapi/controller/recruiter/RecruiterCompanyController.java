@@ -9,10 +9,13 @@ import com.restapi.response.common.APIResponse;
 import com.restapi.service.CompanyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.security.RolesAllowed;
+import java.io.IOException;
 import java.util.Optional;
 
 @RestController
@@ -35,8 +38,8 @@ public class RecruiterCompanyController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<APIResponse> createCompanyDetails(@RequestBody CompanyRequest companyRequest) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<APIResponse> createCompanyDetails(CompanyRequest companyRequest){
         CompanyResponse company = companyService.createCompanyDetails(companyRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(company);
