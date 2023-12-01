@@ -1,4 +1,4 @@
-![image](https://github.com/NareshBabuDy/Job-Posting/assets/145537647/e6c26b8d-bf0e-41ec-828a-3da64298464e)# Job-Posting
+# Job-Posting
 
 **Description**
 
