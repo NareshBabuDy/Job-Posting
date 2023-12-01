@@ -13,14 +13,14 @@ import java.util.Optional;
 public interface AppliedRepository extends JpaRepository<Applied, Long> {
 
 
-    @Query("SELECT a FROM Applied a WHERE a.profile.appUser.id = ?1")
+    @Query("SELECT a FROM Applied a WHERE a.profile.id = ?1")
     Optional<List<Applied>> findAppliedList(Long userId);
 
 
 //    @Query("select a from Applied a inner join a.appUser aUser where aUser.id = ?1")
 //    Optional<List<Applied>> findAppliedList(Long userId);
 
-    @Query("SELECT a FROM Applied a JOIN a.jobs j WHERE j.company.id = ?1")
+    @Query("SELECT a FROM Applied a JOIN a.mainJobid j WHERE j.company.id = ?1")
     Optional<List<Applied>> findCompanyApplicationList(Long companyId);
 
 }

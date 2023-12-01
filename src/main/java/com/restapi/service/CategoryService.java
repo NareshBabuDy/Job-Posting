@@ -1,6 +1,7 @@
 package com.restapi.service;
 
 import com.restapi.dto.CategoryDto;
+import com.restapi.exception.common.ResourceNotFoundException;
 import com.restapi.model.Category;
 import com.restapi.repository.CategoryRepository;
 import com.restapi.request.CategoryRequest;
@@ -43,8 +44,9 @@ public class CategoryService {
     }
 
 
-    public Optional<Category> findById(Long categoryId) {
-        Optional<Category> category = categoryRepository.findById(categoryId);
+    public Category findById(Long categoryId) {
+        Category category = categoryRepository.findById(categoryId).orElseThrow((() -> new ResourceNotFoundException("AppUserId",
+                "AppUserId", categoryId)));;
         return category;
     }
 }

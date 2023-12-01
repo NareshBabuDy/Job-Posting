@@ -13,10 +13,11 @@ public class ProfileResponse {
     private Long Id;
     private String firstName;
     private String lastName;
-    private String Gender;
+    private String gender;
     private String phoneNumber;
     private String email;
-    private byte[] profilePhoto;
+    private String photo;
+    private String resume;
     private String skills;
     private String experience;
     private Long appUserId;

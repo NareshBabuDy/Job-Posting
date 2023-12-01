@@ -39,7 +39,7 @@ public class RecruiterApplicationController {
 
     @PutMapping
     public ResponseEntity<APIResponse> updateAppliedStatus(@RequestBody AppliedRequest appliedRequest) {
-        AppliedResponse applied = applyService.updateJob(appliedRequest);
+        AppliedResponse applied = applyService.updateAppliedStatus(appliedRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(applied);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

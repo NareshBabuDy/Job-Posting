@@ -12,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.security.RolesAllowed;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/user/profile")
@@ -32,17 +31,12 @@ public class ProfileController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<APIResponse> addProfileDetails(@RequestBody ProfileRequest profileRequest) {
-        Profile profile = profileService.addProfileDetails(profileRequest);
-        apiResponse.setStatus(HttpStatus.OK.value());
-        apiResponse.setData(profile);
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
+
+
 
     @PutMapping
     public ResponseEntity<APIResponse> updateProfileDetails(@RequestBody ProfileRequest profileRequest) {
-        Profile profile = profileService.addProfileDetails(profileRequest);
+        ProfileResponse profile = profileService.addProfileDetails(profileRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(profile);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);

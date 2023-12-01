@@ -18,7 +18,11 @@ public class CompanyRequest {
     private String companyName;
     @Size(min = 4, message = "Company url Should have more than 4 character")
     private String companyUrl;
+
+    @Column(nullable = false, length = 200)
+    private String aboutCompany;
+
     @Size(min = 1, message = "AppUserId Should be filled")
     private Long appUserId;
-    private byte[] photo;
+    private String photo;
 }

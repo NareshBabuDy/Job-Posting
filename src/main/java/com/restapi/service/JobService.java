@@ -23,6 +23,8 @@ public class JobService {
     private JobsDto jobsDto;
 
     @Autowired
+    private CategoryService categoryService;
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
@@ -43,13 +45,14 @@ public class JobService {
     @Transactional
     public List<JobResponse> createJob(JobRequest jobRequest) {
         Jobs jobs = JobsDto.mapToJobs(jobRequest);
-        Category category = categoryRepository.findById(jobRequest.getCategory_id())
+        Category category = categoryRepository.findById(jobRequest.getCategoryId())
                 .orElseThrow(() -> new ResourceNotFoundException("CategoryId",
-                        "CategoryId", jobRequest.getCategory_id()));
+                        "CategoryId", jobRequest.getCategoryId()));
         jobs.setCategory(category);
-        Company company = companyRepository.findById(jobRequest.getCompany())
+
+        Company company = companyRepository.findByCompanyId(jobRequest.getCompanyId())
                 .orElseThrow(() -> new ResourceNotFoundException("CompanyID",
-                        "CompanyID", jobRequest.getCompany()));
+                        "CompanyID", jobRequest.getCompanyId()));
         jobs.setCompany(company);
 
         jobsRepository.save(jobs);
@@ -58,14 +61,17 @@ public class JobService {
 
     public List<JobResponse> updateJob(JobRequest jobRequest) {
         Jobs jobs = JobsDto.mapToJobs(jobRequest);
-        Category category = categoryRepository.findById(jobRequest.getCategory_id())
-                .orElseThrow(() -> new ResourceNotFoundException("CategoryId",
-                        "CategoryId", jobRequest.getCategory_id()));
+        System.out.println(jobs);
+        Category category = categoryService.findById(jobRequest.getCategoryId());
         jobs.setCategory(category);
-        Company company = companyRepository.findById(jobRequest.getCompany())
+        System.out.println(category);
+        System.out.println("cateset");
+        Company company = companyRepository.findByCompanyId(jobRequest.getCompanyId())
                 .orElseThrow(() -> new ResourceNotFoundException("CompanyID",
-                        "CompanyID", jobRequest.getCompany()));
+                        "CompanyID", jobRequest.getCompanyId()));
+        System.out.println("company");
         jobs.setCompany(company);
+        System.out.println("companye");
         jobsRepository.save(jobs);
         return findAll();
     }
@@ -76,9 +82,14 @@ public class JobService {
     }
 
 
-    public List<Jobs> findByCompanyId(Long id) {
+    public List<JobResponse> findByCompanyId(Long id) {
         List<Jobs> jobs = jobsRepository.findByCompanyId(id);
-        return jobs;
+        List<JobResponse> jobResponses = new ArrayList<>();
+        for (Jobs jobs1 : jobs){
+            JobResponse jobResponse = jobsDto.mapToJobResponse(jobs1);
+            jobResponses.add(jobResponse);
+        }
+        return jobResponses;
     }
 
     public Jobs findById(Long jobId) {
@@ -86,7 +97,8 @@ public class JobService {
                 .orElseThrow(() -> new ResourceNotFoundException("JobId", "JobId", jobId));
         return jobs;
     }
-    public Jobs decreaseCount(Long jobid)  {
-            return jobsRepository.decreaseJobCount(jobid);
+
+    public Jobs decreaseCount(Long jobid) {
+        return jobsRepository.decreaseJobCount(jobid);
     }
 }

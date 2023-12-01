@@ -14,12 +14,11 @@ public class ProfileRequest {
     @Size(min = 3, message = "Last name should be min 3 letter")
     private String lastName;
     @Size(min = 3, message = "gender should be min 3 letter")
-    private String Gender;
+    private String gender;
     @Size(min = 9, message = "number have min 9 digits")
     private String phoneNumber;
     @Size(min = 6, message = "email should be min 6 letter")
     private String email;
-    private byte[] profilePhoto;
     @Size(min = 3, message = "skills should be min 3 letter")
     private String skills;
     @Size(min = 1, message = "expirience should be min 3 letter")

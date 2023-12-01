@@ -37,8 +37,8 @@ public class RecruiterCompanyController {
         apiResponse.setData(company);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
-
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+//(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    @PostMapping
     public ResponseEntity<APIResponse> createCompanyDetails(CompanyRequest companyRequest){
         CompanyResponse company = companyService.createCompanyDetails(companyRequest);
         apiResponse.setStatus(HttpStatus.OK.value());

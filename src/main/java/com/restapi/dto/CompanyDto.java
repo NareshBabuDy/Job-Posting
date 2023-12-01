@@ -5,6 +5,8 @@ import com.restapi.request.CompanyRequest;
 import com.restapi.response.CompanyResponse;
 import org.springframework.stereotype.Component;
 
+import java.nio.charset.StandardCharsets;
+
 @Component
 public class CompanyDto {
 
@@ -13,9 +15,10 @@ public class CompanyDto {
         if (companyRequest.getId() != null) {
             company.setId(companyRequest.getId());
         }
+        company.setAboutCompany(companyRequest.getAboutCompany());
         company.setCompanyName(companyRequest.getCompanyName());
         company.setCompanyUrl(companyRequest.getCompanyUrl());
-        company.setCompanyPhoto(companyRequest.getPhoto());
+        company.setAboutCompany(companyRequest.getAboutCompany());
 
         return company;
     }
@@ -26,7 +29,7 @@ public class CompanyDto {
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setCompanyUrl(company.getCompanyUrl());
         companyResponse.setAppUser(company.getAppUser().getId());
-        companyResponse.setPhoto(company.getCompanyPhoto());
+        companyResponse.setAboutCompany(company.getAboutCompany());
         return companyResponse;
     }
 }

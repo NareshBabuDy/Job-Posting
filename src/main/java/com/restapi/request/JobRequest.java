@@ -24,7 +24,7 @@ public class JobRequest {
     private Integer count;
     private String lastdate;
     @Size(min = 1, message = "Category id Should not be empty")
-    private Long category_id;
+    private Long categoryId;
     @Size(min = 1, message = "Company Id Should not be empty")
-    private Long company;
+    private Long companyId;
 }

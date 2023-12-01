@@ -1,5 +1,6 @@
 package com.restapi.response;
 
+import com.restapi.model.Category;
 import com.restapi.model.Jobs;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -21,6 +22,6 @@ public class JobResponse {
     private Integer count;
     private String lastdate;
     private String postedDate;
-    private Long categoryId;
+    private String categoryId;
     private Long companyId;
 }

@@ -55,4 +55,5 @@ public class AppUser {
     @OneToOne(mappedBy = "appUser")
     private Company company;
 
+
 }

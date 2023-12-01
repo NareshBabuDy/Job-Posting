@@ -54,6 +54,6 @@ public class Jobs {
     @JoinColumn(name = "company_id", referencedColumnName = "id")
     private Company company;
 
-    @OneToMany(mappedBy = "mainJobid")
+    @OneToMany(mappedBy = "mainJobid" ,cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Applied> appliedList = new ArrayList<>();
 }

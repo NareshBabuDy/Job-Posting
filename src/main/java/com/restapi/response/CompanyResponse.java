@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -15,5 +17,6 @@ public class CompanyResponse {
     private String companyName;
     private String companyUrl;
     private Long appUser;
-    private byte[] photo;
+    private String aboutCompany;
+    private String photo;
 }

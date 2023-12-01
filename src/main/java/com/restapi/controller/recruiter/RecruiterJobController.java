@@ -20,7 +20,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/recruiter/jobs")
 //@PreAuthorize("hasRole('ROLE_ADMIN')")
-@RolesAllowed({Role.ADMIN, Role.RECRUITER})
+@RolesAllowed({ Role.RECRUITER})
 
 
 public class RecruiterJobController {
@@ -36,7 +36,7 @@ public class RecruiterJobController {
 
     @GetMapping("/all/{id}")
     public ResponseEntity<APIResponse> getJobs(@PathVariable Long id) {
-        List<Jobs> jobsList = jobService.findByCompanyId(id);
+        List<JobResponse> jobsList = jobService.findByCompanyId(id);
         apiResponse.setStatus(HttpStatus.OK.value());
         apiResponse.setData(jobsList);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
@@ -45,9 +45,9 @@ public class RecruiterJobController {
     @PostMapping
     public ResponseEntity<APIResponse> createJob(@RequestBody
                                                  JobRequest jobRequest) {
-        List<JobResponse> bookList = jobService.createJob(jobRequest);
+        List<JobResponse> jobs = jobService.createJob(jobRequest);
         apiResponse.setStatus(HttpStatus.OK.value());
-        apiResponse.setData(bookList);
+        apiResponse.setData(jobs);
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 

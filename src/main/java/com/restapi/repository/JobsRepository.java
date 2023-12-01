@@ -10,7 +10,7 @@ import java.util.List;
 
 @Repository
 public interface JobsRepository extends JpaRepository<Jobs, Long> {
-    @Query("SELECT j FROM Jobs j WHERE j.company.id =?1")
+    @Query("SELECT a FROM Jobs a JOIN a.company j WHERE j.appUser.id = ?1")
     List<Jobs> findByCompanyId(Long companyId);
 
     @Query("UPDATE Jobs j SET j.count = j.count - 1 WHERE j.id = ?1")

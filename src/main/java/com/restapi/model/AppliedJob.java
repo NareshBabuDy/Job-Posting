@@ -23,7 +23,7 @@ public class AppliedJob {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, length = 100)
+    @Column(updatable = true , nullable = false, length = 100)
     private Long Jobid;
 
     @Column(nullable = false, length = 100)

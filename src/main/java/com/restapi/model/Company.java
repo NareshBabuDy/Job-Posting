@@ -28,9 +28,14 @@ public class Company {
     @Column(nullable = false, length =  100)
     private String companyUrl;
 
-    @Lob
-    @Column(name = "photo", columnDefinition = "BLOB")
-    private byte[] companyPhoto;
+    @Column(nullable = false, length =  200)
+    private String aboutCompany;
+
+    @Column(nullable = false,length = 50)
+    private String companyType;
+
+    @Column(name = "photo")
+    private String companyPhoto;
 
     @JsonIgnore
     @OneToOne

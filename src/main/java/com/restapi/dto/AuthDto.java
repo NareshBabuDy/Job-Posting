@@ -11,7 +11,7 @@ public class AuthDto {
     public AppUser mapToAppUser(RegisterRequest user) {
         AppUser appUser = new AppUser();
         appUser.setUsername(user.getUsername());
-        appUser.setName(user.getName());
+        appUser.setName(user.getFirstName()+user.getLastName());
         appUser.setPassword(user.getPassword());
         return appUser;
     }

@@ -30,7 +30,7 @@ public class Profile {
     private String lastName;
 
     @Column(nullable = false, length = 100)
-    private String Gender;
+    private String gender;
 
     @Column(nullable = false, length = 100)
     private String phoneNumber;
@@ -38,10 +38,11 @@ public class Profile {
     @Column(nullable = false, length = 100)
     private String email;
 
-    @Lob
-    @Column(name = "photo", columnDefinition = "BLOB")
-    private byte[] profilePhoto;
+    @Column(name = "resume")
+    private String resume;
 
+    @Column(name = "photo")
+    private String photo;
 
     @Column(nullable = false, length = 100)
     private String skills;

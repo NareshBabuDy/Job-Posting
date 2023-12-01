@@ -23,7 +23,7 @@ public class JobsDto {
         jobResponse.setCount(job.getCount());
         jobResponse.setLastdate(job.getLastdate());
         jobResponse.setPostedDate(String.valueOf(job.getCreatedAt()));
-        jobResponse.setCategoryId(job.getCategory().getId());
+        jobResponse.setCategoryId(job.getCategory().getCategory());
         jobResponse.setCompanyId(job.getCompany().getId());
         return jobResponse;
     }
@@ -33,7 +33,6 @@ public class JobsDto {
         if (jobRequest.getId() != null) {
             jobs.setId(jobRequest.getId());
         }
-
         jobs.setTitle(jobRequest.getTitle());
         jobs.setDescription(jobRequest.getDescription());
         jobs.setCount(jobRequest.getCount());

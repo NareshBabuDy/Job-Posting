@@ -5,6 +5,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+
+
 @Repository
 public interface AppliedJobRepository extends JpaRepository<AppliedJob, Long> {
     @Query("SELECT j FROM AppliedJob j WHERE j.Jobid = ?1")
