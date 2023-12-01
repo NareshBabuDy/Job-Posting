@@ -69,7 +69,7 @@ Front End Repository Link
 **MySQL Schema**
 
     👉
-      ![image](https://github.com/NareshBabuDy/Job-Posting/assets/145537647/0011da2c-984c-4516-88e1-b60f39191da1)
+![image](https://github.com/NareshBabuDy/Job-Posting/assets/145537647/f147e7c0-b0f7-43f3-9f62-e8fc66cfccb0)
 
 Demo Video Url
   
