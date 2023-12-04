@@ -18,8 +18,6 @@ public class CompanyDto {
         company.setAboutCompany(companyRequest.getAboutCompany());
         company.setCompanyName(companyRequest.getCompanyName());
         company.setCompanyUrl(companyRequest.getCompanyUrl());
-        company.setAboutCompany(companyRequest.getAboutCompany());
-
         return company;
     }
 
@@ -28,7 +26,7 @@ public class CompanyDto {
         companyResponse.setId(company.getId());
         companyResponse.setCompanyName(company.getCompanyName());
         companyResponse.setCompanyUrl(company.getCompanyUrl());
-        companyResponse.setAppUser(company.getAppUser().getId());
+        companyResponse.setAppUserId(company.getAppUser().getId());
         companyResponse.setAboutCompany(company.getAboutCompany());
         return companyResponse;
     }

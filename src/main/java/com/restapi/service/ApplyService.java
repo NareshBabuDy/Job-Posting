@@ -3,10 +3,7 @@ package com.restapi.service;
 import com.restapi.dto.ApplyDto;
 import com.restapi.exception.common.ResourceNotFoundException;
 import com.restapi.model.*;
-import com.restapi.repository.AppliedJobRepository;
-import com.restapi.repository.AppliedRepository;
-import com.restapi.repository.CompanyRepository;
-import com.restapi.repository.ProfileRepository;
+import com.restapi.repository.*;
 import com.restapi.request.AppliedRequest;
 import com.restapi.response.AppliedResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +25,8 @@ public class ApplyService {
     private JobService jobService;
 
     @Autowired
+    private JobsRepository jobsRepository;
+    @Autowired
     private CompanyRepository companyRepository;
 
     @Autowired
@@ -42,7 +41,7 @@ public class ApplyService {
     @Transactional
     public AppliedResponse applyToJob(AppliedRequest appliedRequest) {
         Profile profile = profileRepository.findByUserId(appliedRequest.getProfileId())
-                .orElseThrow(() -> new ResourceNotFoundException("company", "company", appliedRequest.getProfileId()));
+                .orElseThrow(() -> new ResourceNotFoundException("Profile", "Profile", appliedRequest.getProfileId()));
         Jobs jobs = jobService.findById(appliedRequest.getJobId());
         AppliedJob appliedJob1 = new AppliedJob();
 
@@ -58,7 +57,6 @@ public class ApplyService {
             appliedJob1.setCategoryName(jobs.getCategory().getCategory());
             appliedJob1.setCompany(jobs.getCompany());
             appliedJobRepository.save(appliedJob1);
-
         }
 
         Optional<List<Applied>> appliedList = appliedRepository.findAppliedList(appliedRequest.getProfileId());
@@ -74,7 +72,17 @@ public class ApplyService {
         newapplied.setMainJobid(jobs);
         newapplied.setJobs(appliedJob1);
         appliedRepository.save(newapplied);
-//        Jobs job = jobService.decreaseCount(jobs.getId());
+        Jobs jobscount = new Jobs();
+        jobscount.setId(jobs.getId());
+        jobscount.setTitle(jobs.getTitle());
+        jobscount.setDescription(jobs.getDescription());
+        jobscount.setCompany(jobs.getCompany());
+        jobscount.setLastdate(jobs.getLastdate());
+        jobscount.setCategory(jobs.getCategory());
+        Integer count = jobs.getCount();
+        Integer decrease = count - 1;
+        jobscount.setCount(decrease);
+        jobsRepository.save(jobscount);
         return applyDto.mapToAppliedResponse(newapplied);
     }
 

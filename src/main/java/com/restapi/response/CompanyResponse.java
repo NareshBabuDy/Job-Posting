@@ -16,7 +16,7 @@ public class CompanyResponse {
     private Long id;
     private String companyName;
     private String companyUrl;
-    private Long appUser;
+    private Long appUserId;
     private String aboutCompany;
     private String photo;
 }

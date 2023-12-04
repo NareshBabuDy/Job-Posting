@@ -24,5 +24,4 @@ public class CompanyRequest {
 
     @Size(min = 1, message = "AppUserId Should be filled")
     private Long appUserId;
-    private String photo;
 }

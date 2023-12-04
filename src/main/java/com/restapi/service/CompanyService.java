@@ -52,8 +52,8 @@ public class CompanyService {
     }
 
     public CompanyResponse createCompanyDetails(CompanyRequest companyRequest) {
-        Company company1 = companyRepository.findById(companyRequest.getAppUserId()).orElseThrow();
         Company company = companyDto.mapToCompany(companyRequest);
+        Company company1 = companyRepository.findByCompanyId(companyRequest.getAppUserId()).orElseThrow();
         AppUser appUser = userService.findUserById(companyRequest.getAppUserId());
         company.setCompanyType(company1.getCompanyType());
         company.setCompanyPhoto(company1.getCompanyPhoto());

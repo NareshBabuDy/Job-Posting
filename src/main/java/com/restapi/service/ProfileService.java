@@ -74,12 +74,20 @@ public class ProfileService {
     }
 
     public ProfileResponse addProfileDetails(ProfileRequest profileRequest) {
-        Profile check = profileRepository.findByUserId(profileRequest.getAppUserId()).orElseThrow((() -> new ResourceNotFoundException("AppUserId",
-                "AppUserId", profileRequest.getAppUserId())));
         Profile profile = profileDto.mapToProfileRequest(profileRequest);
-        profile.setPhoto(check.getPhoto());
+        profile.setFirstName(profileRequest.getFirstName());
+        profile.setLastName(profileRequest.getLastName());
+        profile.setGender(profileRequest.getGender());
+        profile.setPhoneNumber(profileRequest.getPhoneNumber());
+        profile.setEmail(profileRequest.getEmail());
+        profile.setSkills(profileRequest.getSkills());
+        profile.setExperience(profileRequest.getExperience());
+        Profile check = profileRepository.findByUserId(profileRequest.getAppUserId()).orElseThrow();
+        profile.setId(check.getId());
         profile.setResume(check.getResume());
-        profile.setAppUser(check.getAppUser());
+        profile.setPhoto(check.getPhoto());
+        AppUser appUser = userRepository.findById(profileRequest.getAppUserId()).orElseThrow();
+        profile.setAppUser(appUser);
         profileRepository.save(profile);
         return profileDto.mapToProfileResponse(profile);
     }

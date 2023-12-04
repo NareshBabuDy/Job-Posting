@@ -38,13 +38,13 @@ public class RecruiterCompanyController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 //(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    @PostMapping
-    public ResponseEntity<APIResponse> createCompanyDetails(CompanyRequest companyRequest){
-        CompanyResponse company = companyService.createCompanyDetails(companyRequest);
-        apiResponse.setStatus(HttpStatus.OK.value());
-        apiResponse.setData(company);
-        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
-    }
+//    @PostMapping
+//    public ResponseEntity<APIResponse> createCompanyDetails(CompanyRequest companyRequest){
+//        CompanyResponse company = companyService.createCompanyDetails(companyRequest);
+//        apiResponse.setStatus(HttpStatus.OK.value());
+//        apiResponse.setData(company);
+//        return new ResponseEntity<>(apiResponse, HttpStatus.OK);
+//    }
 
     @PutMapping
     public ResponseEntity<APIResponse> updateCompanyDetails(@RequestBody CompanyRequest companyRequest) {

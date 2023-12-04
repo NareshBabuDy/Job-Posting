@@ -31,9 +31,6 @@ public class ProfileController {
         return new ResponseEntity<>(apiResponse, HttpStatus.OK);
     }
 
-
-
-
     @PutMapping
     public ResponseEntity<APIResponse> updateProfileDetails(@RequestBody ProfileRequest profileRequest) {
         ProfileResponse profile = profileService.addProfileDetails(profileRequest);
