@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UserDetailsServiceImpl implements UserDetailsService {
 
@@ -25,7 +26,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         AppUser user = userRepository.findByUsername(username).orElseThrow(() -> {
             throw new UsernameNotFoundException("User not found with username: " + username);
         });
-        if (user != null) {
+        Optional<AppUser> user1 = Optional.ofNullable(user);
+        if (user1.isPresent()) {
             return new User(user.getName(), user.getPassword(),
                     buildSimpleGrantedAuthorities(user.getRoles()));
         }

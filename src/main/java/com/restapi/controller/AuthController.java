@@ -1,8 +1,5 @@
 package com.restapi.controller;
 
-import com.restapi.model.AppUser;
-import com.restapi.model.Profile;
-import com.restapi.model.Role;
 import com.restapi.request.LoginRequest;
 import com.restapi.request.RegisterRequest;
 import com.restapi.response.AuthResponse;
@@ -19,11 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -48,14 +41,7 @@ public class AuthController {
     }
 
     @PostMapping(value = "/company/register", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<APIResponse> register(@RequestParam("companyPhoto") MultipartFile photo,
-                                                @RequestParam("username") String username,
-                                                @RequestParam("password") String password,
-                                                @RequestParam("companyName") String companyName,
-                                                @RequestParam("companyUrl") String companyUrl,
-                                                @RequestParam("aboutCompany") String aboutCompany,
-                                                @RequestParam("companyType") String companyType
-    ) throws IOException {
+    public ResponseEntity<APIResponse> register(@RequestParam("companyPhoto") MultipartFile photo, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("companyName") String companyName, @RequestParam("companyUrl") String companyUrl, @RequestParam("aboutCompany") String aboutCompany, @RequestParam("companyType") String companyType) throws IOException {
         String companyPhoto = storageService.storeFile(photo);
         CompanyRegisterRequest registerRequest = new CompanyRegisterRequest();
         registerRequest.setUsername(username);
@@ -82,18 +68,7 @@ public class AuthController {
 //    }
 
     @PostMapping(value = "/create", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public ResponseEntity<APIResponse> addProfile(@RequestParam("resume") MultipartFile resume,
-                                                  @RequestParam("username") String username,
-                                                  @RequestParam("password") String password,
-                                                  @RequestParam("firstName") String firstName,
-                                                  @RequestParam("lastName") String lastName,
-                                                  @RequestParam("gender") String gender,
-                                                  @RequestParam("phoneNumber") String phoneNumber,
-                                                  @RequestParam("email") String email,
-                                                  @RequestParam("skills") String skills,
-                                                  @RequestParam("experience") String experience,
-                                                  @RequestParam("photo") MultipartFile photo
-    ) throws IOException {
+    public ResponseEntity<APIResponse> addProfile(@RequestParam("resume") MultipartFile resume, @RequestParam("username") String username, @RequestParam("password") String password, @RequestParam("firstName") String firstName, @RequestParam("lastName") String lastName, @RequestParam("gender") String gender, @RequestParam("phoneNumber") String phoneNumber, @RequestParam("email") String email, @RequestParam("skills") String skills, @RequestParam("experience") String experience, @RequestParam("photo") MultipartFile photo) throws IOException {
         String userResume = storageService.storeFile(resume);
         String userPhoto = storageService.storeFile(photo);
         RegisterRequest registerRequest = new RegisterRequest();

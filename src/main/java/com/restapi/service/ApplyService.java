@@ -10,9 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 
 @Service
@@ -37,54 +35,6 @@ public class ApplyService {
 
     @Autowired
     private ProfileRepository profileRepository;
-
-    @Transactional
-    public AppliedResponse applyToJob(AppliedRequest appliedRequest) {
-        Profile profile = profileRepository.findByUserId(appliedRequest.getProfileId())
-                .orElseThrow(() -> new ResourceNotFoundException("Profile", "Profile", appliedRequest.getProfileId()));
-        Jobs jobs = jobService.findById(appliedRequest.getJobId());
-        AppliedJob appliedJob1 = new AppliedJob();
-
-        if (appliedJobRepository.findByJobId(jobs.getId()) != null) {
-            appliedJob1 = appliedJobRepository.findByJobId(jobs.getId());
-        } else {
-            appliedJob1.setJobid(jobs.getId());
-            appliedJob1.setTitle(jobs.getTitle());
-            appliedJob1.setDescription(jobs.getDescription());
-            appliedJob1.setCount(jobs.getCount());
-            appliedJob1.setLastdate(jobs.getLastdate());
-            appliedJob1.setCategory(jobs.getCategory().getId());
-            appliedJob1.setCategoryName(jobs.getCategory().getCategory());
-            appliedJob1.setCompany(jobs.getCompany());
-            appliedJobRepository.save(appliedJob1);
-        }
-
-        Optional<List<Applied>> appliedList = appliedRepository.findAppliedList(appliedRequest.getProfileId());
-        if (appliedList.isPresent()) {
-            for (Applied applied : appliedList.get()) {
-                if (applied.getMainJobid().getId().equals(appliedRequest.getJobId())) {
-                    return applyDto.mapToAppliedResponse(applied);
-                }
-            }
-        }
-        Applied newapplied = applyDto.mapToApplied(appliedRequest);
-        newapplied.setProfile(profile);
-        newapplied.setMainJobid(jobs);
-        newapplied.setJobs(appliedJob1);
-        appliedRepository.save(newapplied);
-        Jobs jobscount = new Jobs();
-        jobscount.setId(jobs.getId());
-        jobscount.setTitle(jobs.getTitle());
-        jobscount.setDescription(jobs.getDescription());
-        jobscount.setCompany(jobs.getCompany());
-        jobscount.setLastdate(jobs.getLastdate());
-        jobscount.setCategory(jobs.getCategory());
-        Integer count = jobs.getCount();
-        Integer decrease = count - 1;
-        jobscount.setCount(decrease);
-        jobsRepository.save(jobscount);
-        return applyDto.mapToAppliedResponse(newapplied);
-    }
 
     public List<AppliedResponse> findByUserId(Long userId) {
         Profile profile = profileRepository.findByUserId(userId).orElseThrow();
@@ -111,6 +61,45 @@ public class ApplyService {
         return appliedResponseList;
     }
 
+    @Transactional
+    public AppliedResponse applyToJob(AppliedRequest appliedRequest) {
+        Profile profile = profileRepository.findByUserId(appliedRequest.getProfileId())
+                .orElseThrow(() -> new ResourceNotFoundException("Profile", "Profile", appliedRequest.getProfileId()));
+        Jobs jobs = jobService.findById(appliedRequest.getJobId());
+        AppliedJob appliedJob1 = new AppliedJob();
+
+        Optional<AppliedJob> appliedJobOptional = Optional.ofNullable(appliedJobRepository.findByJobId(jobs.getId()));
+
+        if (appliedJobOptional.isPresent()) {
+            appliedJob1 = appliedJobOptional.get();
+        } else {
+            appliedJob1.setJobid(jobs.getId());
+            appliedJob1.setTitle(jobs.getTitle());
+            appliedJob1.setDescription(jobs.getDescription());
+            appliedJob1.setCount(jobs.getCount());
+            appliedJob1.setLastdate(jobs.getLastdate());
+            appliedJob1.setCategory(jobs.getCategory().getId());
+            appliedJob1.setCategoryName(jobs.getCategory().getCategory());
+            appliedJob1.setCompany(jobs.getCompany());
+            appliedJobRepository.save(appliedJob1);
+        }
+
+        Optional<List<Applied>> appliedList = appliedRepository.findAppliedList(appliedRequest.getProfileId());
+        if (appliedList.isPresent()) {
+            for (Applied applied : appliedList.get()) {
+                if (applied.getMainJobid().getId().equals(appliedRequest.getJobId())) {
+                    return applyDto.mapToAppliedResponse(applied);
+                }
+            }
+        }
+        Applied newapplied = applyDto.mapToApplied(appliedRequest);
+        newapplied.setProfile(profile);
+        newapplied.setMainJobid(jobs);
+        newapplied.setJobs(appliedJob1);
+        appliedRepository.save(newapplied);
+        return applyDto.mapToAppliedResponse(newapplied);
+    }
+
     public AppliedResponse updateAppliedStatus(AppliedRequest appliedRequest) {
         Applied applied = applyDto.mapToApplied(appliedRequest);
         Profile profile = profileRepository.findById(appliedRequest.getProfileId())
@@ -127,4 +116,6 @@ public class ApplyService {
         appliedRepository.save(applied);
         return applyDto.mapToAppliedResponse(applied);
     }
+
+    Set<String> data = new LinkedHashSet<String>();
 }

@@ -38,7 +38,7 @@ public class StorageService {
         }
 
         private String getFileExtension(String fileName) {
-            if (fileName == null) {
+            if (fileName.isEmpty()) {
                 return null;
             }
             String[] fileNameParts = fileName.split("\\.");

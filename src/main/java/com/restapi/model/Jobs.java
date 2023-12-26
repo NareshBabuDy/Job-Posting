@@ -30,7 +30,7 @@ public class Jobs {
 //    @Size(min = 20, message = "Title should have at least 20 characters")
     private String title;
 
-    @Column(nullable = false, length = 100)
+    @Column(nullable = false, length = 255)
 //    @Size(min = 20, message = "Description should have at least 20 characters")
     private String description;
 
